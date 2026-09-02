@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Obtener el código fuente
@@ -28,17 +28,17 @@ jobs:
         pip install --upgrade pip
         pip install "Cython<3.0.0" buildozer
 
-    - name: Limpiar variables de entorno conflictivas y Compilar
+    - name: Preparar entorno y Compilar APK
       run: |
-        # Desvincular NDK global de la VM para obligar el uso de NDK r25b
+        # Eliminar variables de NDK globales para evitar conflictos
         unset ANDROID_NDK
         unset ANDROID_NDK_HOME
         unset ANDROID_NDK_ROOT
-        
-        # Aceptar licencias
+
+        # Aceptar licencias de Android
         yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-        # Executar compilación de Buildozer
+        # Compilar APK
         buildozer -v android debug
 
     - name: Guardar el APK como artefacto descargable
