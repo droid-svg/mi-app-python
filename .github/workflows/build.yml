@@ -28,7 +28,7 @@ jobs:
         pip install --upgrade pip
         pip install "Cython<3.0.0" buildozer
 
-    - name: Limpiar entorno y Compilar APK
+    - name: Compilar APK
       run: |
         unset ANDROID_NDK
         unset ANDROID_NDK_HOME
