@@ -13,24 +13,14 @@ jobs:
     - name: Obtener el código fuente
       uses: actions/checkout@v4
 
-    - name: Configurar Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
-
     - name: Compilar APK con Buildozer
-      uses: Artemis-s/buildozer-action@v1
+      uses: kivy/buildozer-action@v1.2.0
       with:
         command: buildozer -v android debug
         buildozer_version: master
 
     - name: Guardar el APK como artefacto descargable
       uses: actions/upload-artifact@v4
-      with:
-        name: app-android
-        path: bin/*.apk
-    - name: Guardar el APK como artefacto descargable
-      uses: actions/upload-artifact@v3
       with:
         name: app-android
         path: bin/*.apk
