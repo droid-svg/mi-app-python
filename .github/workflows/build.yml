@@ -30,15 +30,16 @@ jobs:
 
     - name: Preparar entorno y Compilar APK
       run: |
-        # Eliminar variables de NDK globales para evitar conflictos
         unset ANDROID_NDK
         unset ANDROID_NDK_HOME
         unset ANDROID_NDK_ROOT
 
-        # Aceptar licencias de Android
         yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-        # Compilar APK
+        # Limpia compilaciones truncadas previas para evitar conflictos de caché
+        buildozer android clean || true
+        
+        # Compila directamente
         buildozer -v android debug
 
     - name: Guardar el APK como artefacto descargable
