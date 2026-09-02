@@ -28,22 +28,20 @@ jobs:
         pip install --upgrade pip
         pip install "Cython<3.0.0" buildozer
 
-    - name: Prepara SDK y Licencias para Buildozer
+    - name: Enlazar SDK preinstalado y Aceptar Licencias
       run: |
-        SDK_DIR="$HOME/.buildozer/android/platform/android-sdk"
-        mkdir -p "$SDK_DIR/cmdline-tools"
-        
-        wget -q https://dl.google.com/android/repository/commandlinetools-linux-9441835_latest.zip -O cmdline.zip
-        unzip -q cmdline.zip -d "$SDK_DIR/cmdline-tools"
-        mv "$SDK_DIR/cmdline-tools/cmdline-tools" "$SDK_DIR/cmdline-tools/latest"
-        rm cmdline.zip
+        # Crear la estructura que espera Buildozer reutilizando el SDK del sistema
+        mkdir -p ~/.buildozer/android/platform
+        ln -s $ANDROID_HOME ~/.buildozer/android/platform/android-sdk
 
-        # Resuelve la ruta 'tools/bin/sdkmanager' requerida por Buildozer
-        mkdir -p "$SDK_DIR/tools/bin"
-        ln -s "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" "$SDK_DIR/tools/bin/sdkmanager"
+        # Crear compatibilidad con rutas antiguas 'tools/bin'
+        mkdir -p $ANDROID_HOME/tools/bin
+        if [ -f "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
+          ln -sf $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager $ANDROID_HOME/tools/bin/sdkmanager
+        fi
 
-        # Acepta licencias e instala la versión estable 33
-        yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK_DIR" "build-tools;33.0.2" "platforms;android-33" "platform-tools" || true
+        # Aceptar todas las licencias oficialmente
+        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
     - name: Compilar APK con Buildozer
       run: |
