@@ -16,7 +16,7 @@ jobs:
     - name: Configurar Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
     - name: Instalar dependencias del sistema
       run: |
@@ -28,7 +28,7 @@ jobs:
         pip install --upgrade pip
         pip install "Cython<3.0.0" buildozer
 
-    - name: Preparar entorno y Compilar APK
+    - name: Limpiar entorno y Compilar APK
       run: |
         unset ANDROID_NDK
         unset ANDROID_NDK_HOME
@@ -36,10 +36,7 @@ jobs:
 
         yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-        # Limpia compilaciones truncadas previas para evitar conflictos de caché
         buildozer android clean || true
-        
-        # Compila directamente
         buildozer -v android debug
 
     - name: Guardar el APK como artefacto descargable
