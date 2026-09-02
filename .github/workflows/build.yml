@@ -23,10 +23,6 @@ jobs:
         sudo apt update
         sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libssl-dev libffi-dev libsqlite3-dev build-essential
 
-    - name: Aceptar licencias de Android SDK
-      run: |
-        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-
     - name: Instalar Buildozer y Cython
       run: |
         pip install --upgrade pip
@@ -34,7 +30,7 @@ jobs:
 
     - name: Compilar APK con Buildozer
       run: |
-        buildozer -v android debug
+        buildozer --accept-sdk-license -v android debug
 
     - name: Guardar el APK como artefacto descargable
       uses: actions/upload-artifact@v4
