@@ -30,21 +30,19 @@ jobs:
 
     - name: Prepara SDK y Licencias para Buildozer
       run: |
-        # Definir la estructura que Buildozer espera
         SDK_DIR="$HOME/.buildozer/android/platform/android-sdk"
         mkdir -p "$SDK_DIR/cmdline-tools"
         
-        # Descargar herramientas oficiales de Android
         wget -q https://dl.google.com/android/repository/commandlinetools-linux-9441835_latest.zip -O cmdline.zip
         unzip -q cmdline.zip -d "$SDK_DIR/cmdline-tools"
         mv "$SDK_DIR/cmdline-tools/cmdline-tools" "$SDK_DIR/cmdline-tools/latest"
         rm cmdline.zip
 
-        # Crear acceso directo en 'tools/bin' para arreglar el error 'sdkmanager path does not exist'
+        # Resuelve la ruta 'tools/bin/sdkmanager' requerida por Buildozer
         mkdir -p "$SDK_DIR/tools/bin"
         ln -s "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" "$SDK_DIR/tools/bin/sdkmanager"
 
-        # Aceptar licencias e instalar build-tools 33
+        # Acepta licencias e instala la versión estable 33
         yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$SDK_DIR" "build-tools;33.0.2" "platforms;android-33" "platform-tools" || true
 
     - name: Compilar APK con Buildozer
