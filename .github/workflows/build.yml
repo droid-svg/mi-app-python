@@ -28,9 +28,9 @@ jobs:
         pip install --upgrade pip
         pip install Cython==0.29.33 buildozer
 
-    - name: Compilar APK
+    - name: Aceptar licencias de Android y Compilar APK
       run: |
-        buildozer -v android debug
+        yes | buildozer -v android debug
 
     - name: Guardar el APK como artefacto descargable
       uses: actions/upload-artifact@v4
