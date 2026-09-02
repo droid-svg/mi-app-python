@@ -28,12 +28,17 @@ jobs:
         pip install --upgrade pip
         pip install "Cython<3.0.0" buildozer
 
-    - name: Preparar Licencias de Android SDK
+    - name: Limpiar variables de entorno conflictivas y Compilar
       run: |
+        # Desvincular NDK global de la VM para obligar el uso de NDK r25b
+        unset ANDROID_NDK
+        unset ANDROID_NDK_HOME
+        unset ANDROID_NDK_ROOT
+        
+        # Aceptar licencias
         yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-    - name: Compilar APK con Buildozer
-      run: |
+        # Executar compilación de Buildozer
         buildozer -v android debug
 
     - name: Guardar el APK como artefacto descargable
