@@ -1,0 +1,83 @@
+# -*- coding: utf-8 -*-
+"""Datos del abecedario ilustrado (imágenes en assets/images/abecedario)."""
+
+SETS = [
+    {
+        "key": "comida",
+        "titulo": "Frutas y Vegetales",
+        "desc": "Aprende las letras con frutas, verduras y alimentos",
+        "items": [
+            ("A", "Aguacate", "comida/A.jpg"),
+            ("B", "Brócoli", "comida/B.jpg"),
+            ("C", "Cereza", "comida/C.jpg"),
+            ("CH", "Chirimoya", "comida/CH.jpg"),
+            ("D", "Durazno", "comida/D.jpg"),
+            ("E", "Espinaca", "comida/E.jpg"),
+            ("F", "Fresas", "comida/F.jpg"),
+            ("G", "Guanábana", "comida/G.jpg"),
+            ("H", "Higo", "comida/H.jpg"),
+            ("I", "Isla", "comida/I.jpg"),
+            ("J", "Jobo", "comida/J.jpg"),
+            ("K", "Kiwi", "comida/K.jpg"),
+            ("L", "Limón", "comida/L.jpg"),
+            ("LL", "Llave", "comida/LL.jpg"),
+            ("M", "Mango", "comida/M.jpg"),
+            ("N", "Níspero", "comida/N.jpg"),
+            ("Ñ", "Ñame", "comida/ENIE.jpg"),
+            ("O", "Ocumo", "comida/O.jpg"),
+            ("P", "Pera", "comida/P.jpg"),
+            ("Q", "Quinoto", "comida/Q.jpg"),
+            ("R", "Rábano", "comida/R.jpg"),
+            ("S", "Sandía", "comida/S.jpg"),
+            ("T", "Tomate", "comida/T.jpg"),
+            ("U", "Uva", "comida/U.jpg"),
+            ("V", "Vainilla", "comida/V.jpg"),
+            ("W", "Wasabi", "comida/W.jpg"),
+            ("X", "Xoconostle", "comida/X.jpg"),
+            ("Y", "Yuca", "comida/Y.jpg"),
+            ("Z", "Zanahoria", "comida/Z.jpg"),
+        ],
+    },
+    {
+        "key": "animales",
+        "titulo": "Animales",
+        "desc": "Aprende las letras con animales y amigos",
+        "items": [
+            ("A", "Abeja", "animales/A.jpg"),
+            ("B", "Burro", "animales/B.jpg"),
+            ("C", "Conejo", "animales/C.jpg"),
+            ("CH", "Chivo", "animales/CH.jpg"),
+            ("D", "Dinosaurio", "animales/D.jpg"),
+            ("E", "Elefante", "animales/E.jpg"),
+            ("F", "Flamenco", "animales/F.jpg"),
+            ("G", "Ganso", "animales/G.jpg"),
+            ("H", "Hipopótamo", "animales/H.jpg"),
+            ("I", "Iguana", "animales/I.jpg"),
+            ("J", "Jirafa", "animales/J.jpg"),
+            ("K", "Koala", "animales/K.jpg"),
+            ("L", "Lobo", "animales/L.jpg"),
+            ("LL", "Llama", "animales/LL.jpg"),
+            ("M", "Mono", "animales/M.jpg"),
+            ("N", "Nutria", "animales/N.jpg"),
+            ("Ñ", "Ñandú", "animales/ENIE.jpg"),
+            ("O", "Oso", "animales/O.jpg"),
+            ("P", "Panda", "animales/P.jpg"),
+            ("Q", "Quetzal", "animales/Q.jpg"),
+            ("R", "Rinoceronte", "animales/R.jpg"),
+            ("S", "Serpiente", "animales/S.jpg"),
+            ("T", "Tigre", "animales/T.jpg"),
+            ("U", "Unicornio", "animales/U.jpg"),
+            ("V", "Vaca", "animales/V.jpg"),
+            ("W", "Walabí", "animales/W.jpg"),
+            ("X", "Xilófono", "animales/X.jpg"),
+            ("Y", "Yak", "animales/Y.jpg"),
+            ("Z", "Zebra", "animales/Z.jpg"),
+        ],
+    },
+]
+
+def get_set(key):
+    for s in SETS:
+        if s["key"] == key:
+            return s
+    return SETS[0]
