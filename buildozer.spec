@@ -19,8 +19,8 @@ source.include_exts = py,png,jpg,kv,atlas,json,txt,mp3,wav
 version = 0.1
 
 # (list) Application requirements
-# comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy
+# Fuerza a pythonforandroid a usar la versión estable Python 3.11 en lugar de 3.14
+requirements = python3==3.11.0,kivy
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirement with recipes or site-packages
@@ -53,9 +53,6 @@ orientation = portrait
 fullscreen = 0
 
 # (string) Presplash background color (for android toolchain)
-# Supported formats are: #RRGGBB #AARRGGBB or one of the following names:
-# red, blue, green, white, black, yellow, cyan, magenta, color_accent,
-# color_primary, color_primary_dark
 #android.presplash_color = white
 
 # (list) Permissions
@@ -93,6 +90,9 @@ android.archs = arm64-v8a
 
 # (bool) Enable AndroidX support. Required when targeting API 28+
 android.enable_androidx = True
+
+# (str) python-for-android branch to use
+p4a.branch = master
 
 [buildozer]
 
