@@ -18,7 +18,7 @@ source.include_exts = py,png,jpg,kv,atlas,json,txt,mp3,wav
 # (str) Application versioning
 version = 0.1
 
-# (list) Application requirements (DEBE IR SIN '==')
+# (list) Application requirements
 requirements = python3,kivy
 
 # (str) Supported orientation
@@ -50,6 +50,9 @@ android.archs = arm64-v8a
 
 # (bool) Enable AndroidX support
 android.enable_androidx = True
+
+# (str) python-for-android branch to use
+p4a.branch = v2024.01.21
 
 [buildozer]
 
