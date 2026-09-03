@@ -13,28 +13,34 @@ jobs:
     - name: Obtener el código fuente
       uses: actions/checkout@v4
 
-    - name: Configurar Python 3.10
+    - name: Configurar Python 3.11
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
     - name: Instalar dependencias del sistema
       run: |
         sudo apt update
         sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libssl-dev libffi-dev libsqlite3-dev build-essential ccache
 
-    - name: Instalar Buildozer y Cython
+    - name: Instalar Buildozer y Cython estable
       run: |
         pip install --upgrade pip setuptools
         pip install "Cython<3.0.0" buildozer
 
-    - name: Compilar APK
+    - name: Preparar entorno p4a y Compilar APK
       run: |
         unset ANDROID_NDK
         unset ANDROID_NDK_HOME
         unset ANDROID_NDK_ROOT
 
         yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+
+        # Limpiar cualquier residuo de python3.14
+        rm -rf .buildozer
+
+        # Forzar el uso de la versión estable de python-for-android
+        pip install --upgrade "python-for-android==2024.1.21"
 
         buildozer -v android debug
 
