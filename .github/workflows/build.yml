@@ -7,17 +7,18 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Obtener el código fuente
       uses: actions/checkout@v4
 
-    - name: Compilar APK usando la Action Oficial de Buildozer
-      uses: subsurface-divelog/buildozer-action@v2
+    - name: Compilar APK con Buildozer Action
+      uses: ArtemSdm/buildozer-action@v1
+      id: buildozer
       with:
-        workdir: .
-        buildozer_version: master
+        command: buildozer android debug
+        submodule_update: false
 
     - name: Guardar el APK como artefacto descargable
       uses: actions/upload-artifact@v4
