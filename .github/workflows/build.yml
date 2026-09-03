@@ -23,12 +23,12 @@ jobs:
         sudo apt update
         sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libssl-dev libffi-dev libsqlite3-dev build-essential ccache
 
-    - name: Instalar Buildozer y Cython estable
+    - name: Instalar Buildozer y Cython
       run: |
         pip install --upgrade pip setuptools
-        pip install "Cython<3.0.0" buildozer
+        pip install "Cython<3.0.0" "buildozer==1.5.0" "python-for-android==2024.1.21"
 
-    - name: Preparar entorno p4a y Compilar APK
+    - name: Compilar APK forzando Python 3.11
       run: |
         unset ANDROID_NDK
         unset ANDROID_NDK_HOME
@@ -36,11 +36,10 @@ jobs:
 
         yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-        # Limpiar cualquier residuo de python3.14
         rm -rf .buildozer
 
-        # Forzar el uso de la versión estable de python-for-android
-        pip install --upgrade "python-for-android==2024.1.21"
+        # Forzar la receta de Python 3.11 en p4a
+        p4a create --dist_name=softwareeducativo --bootstrap=sdl2 --requirements=python3==3.11.5,kivy --arch=arm64-v8a || true
 
         buildozer -v android debug
 
