@@ -18,8 +18,8 @@ source.include_exts = py,png,jpg,kv,atlas,json,txt,mp3,wav
 # (str) Application versioning
 version = 0.1
 
-# (list) Application requirements
-requirements = python3==3.11.5,kivy
+# (list) Application requirements (DEBE IR SIN '==')
+requirements = python3,kivy
 
 # (str) Supported orientation
 orientation = portrait
