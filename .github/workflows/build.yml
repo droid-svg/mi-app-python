@@ -7,41 +7,17 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Obtener el código fuente
       uses: actions/checkout@v4
 
-    - name: Configurar Python 3.11
-      uses: actions/setup-python@v5
+    - name: Compilar APK con la Action Oficial de Kivy
+      uses: kivy/buildozer-action@v1.22
       with:
-        python-version: '3.11'
-
-    - name: Instalar dependencias del sistema
-      run: |
-        sudo apt update
-        sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libssl-dev libffi-dev libsqlite3-dev build-essential ccache
-
-    - name: Instalar Buildozer y Cython
-      run: |
-        pip install --upgrade pip setuptools
-        pip install "Cython<3.0.0" "buildozer==1.5.0" "python-for-android==2024.1.21"
-
-    - name: Compilar APK forzando Python 3.11
-      run: |
-        unset ANDROID_NDK
-        unset ANDROID_NDK_HOME
-        unset ANDROID_NDK_ROOT
-
-        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-
-        rm -rf .buildozer
-
-        # Forzar la receta de Python 3.11 en p4a
-        p4a create --dist_name=softwareeducativo --bootstrap=sdl2 --requirements=python3==3.11.5,kivy --arch=arm64-v8a || true
-
-        buildozer -v android debug
+        command: buildozer -v android debug
+        buildozer_version: stable
 
     - name: Guardar el APK como artefacto descargable
       uses: actions/upload-artifact@v4
